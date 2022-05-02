@@ -18,14 +18,8 @@ public:
                 st2.push(t[i]);
         }
         
-        // comparing st1 and st2 if they are same or not
-        while(!st1.empty() || !st2.empty()){
-            if(st1.size() != st2.size()) return false;
-            
-            if(st1.top() != st2.top()) return false;
-            
-            st1.pop(); st2.pop();
-        }
+        if(st1 != st2) return false;
         return true;
+        
     }
 };
