@@ -14,7 +14,7 @@ public:
     // to get the inorder successor of given node
     TreeNode* getInorderSuccessor(TreeNode* curr) {
         curr = curr->right;
-        while(curr != NULL && curr->left != NULL)
+        while(curr && curr->left)
             curr = curr->left;
             
         return curr;
@@ -31,12 +31,12 @@ public:
             root->right = deleteNode(root->right, key);
             
         else {
-            if(root->left == NULL) {
+            if(!root->left) {
                 TreeNode* temp = root->right;
                 delete root;
                 return temp;
              }
-            else if(root->right == NULL) {
+            else if(!root->right) {
                 TreeNode* temp = root->left;
                 delete root;
                 return temp;
