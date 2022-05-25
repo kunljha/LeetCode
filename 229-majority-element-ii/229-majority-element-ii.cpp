@@ -12,9 +12,8 @@ public:
                 table.insert({x, 1});
         }
         
-        for(auto it = table.begin(); it != table.end(); it++) {
+        for(auto it = table.begin(); it != table.end(); it++)
             if(it->second > n/3) ans.push_back(it->first);
-        }
         
         return ans;
     }
