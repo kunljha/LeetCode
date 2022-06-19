@@ -9,24 +9,20 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-       unordered_set<ListNode*> hash;
+        ListNode* currA = headA;
+        ListNode* currB = headB;
         
-        ListNode* temp = headA;
-       
-        while(temp != NULL) {
-            hash.insert(temp);
-            temp = temp->next;
-        }
-        
-        temp = headB;
-        
-        while(temp != NULL) {
-            if(hash.find(temp) != hash.end()) return temp;
+        while(currA != nullptr && currB != nullptr) {
+            if(currA == currB) return currA;
             
-            hash.insert(temp);
-            temp = temp->next;
+            
+            currA = currA->next;
+            currB = currB->next;
+            
+            if(currA == nullptr) currA = headB;
+            else if(currB == nullptr) currB = headA;    
         }
         
-        return NULL;
+        return nullptr;
     }
 };
