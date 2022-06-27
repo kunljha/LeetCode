@@ -10,22 +10,25 @@
  */
 class Solution {
 public:
-    bool isPalindrome(ListNode* head) {
-        vector<int> v;
+    bool isPalindrome(ListNode *head) {
+        ListNode *slow = head, *fast = head, *prev = NULL, *temp = NULL;
         
-        ListNode *curr = head;
-        while(curr != NULL){
-            v.push_back(curr->val);
-            curr = curr->next;
+        while(fast != NULL && fast->next != NULL) { // finding mid point
+            fast = fast->next->next;
+            temp = slow->next;
+            slow->next = prev;
+            prev = slow;
+            slow = temp;
+        } 
+
+        slow = (fast != NULL ? slow->next : slow); 
+
+        while(slow != NULL) {
+            if(slow->val == prev->val) 
+                slow = slow->next, prev = prev->next;
+            else return false;
         }
-        
-        int start = 0, end = v.size() - 1;
-        while(start <= end) {
-           if(v[start] == v[end]){
-               start++; end--;
-           }
-           else return false;  
-        }
+
         return true;
     }
 };
