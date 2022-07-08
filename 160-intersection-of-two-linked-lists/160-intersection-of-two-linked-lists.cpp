@@ -12,15 +12,14 @@ public:
         ListNode* currA = headA;
         ListNode* currB = headB;
         
-        while(currA != nullptr && currB != nullptr) {
+        while(currA && currB) {
             if(currA == currB) return currA;
-            
             
             currA = currA->next;
             currB = currB->next;
             
-            if(currA == nullptr) currA = headB;
-            else if(currB == nullptr) currB = headA;    
+            if(!currA) currA = headB;
+            else if(!currB) currB = headA;    
         }
         
         return nullptr;
