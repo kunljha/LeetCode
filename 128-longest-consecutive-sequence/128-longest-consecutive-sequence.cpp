@@ -1,19 +1,19 @@
 class Solution {
 public:
-    int longestConsecutive(vector<int>& num) {
-        if(num.size() == 0) return 0;
+    int longestConsecutive(vector<int>& nums) {
+        if(nums.size() == 0) return 0;
         
-        unordered_set<int> hash(num.begin(), num.end());
+        unordered_set<int> hash(nums.begin(), nums.end());
         
         int res = 1;
         
-        for(int &n : num) {
-            hash.erase(n);
+        for(int &n : nums) {
+            hash.erase(n); // res is already 1
             
             int prev = n-1, next = n+1;
             
-            while(hash.find(prev) != hash.end()) hash.erase(prev--);
-            while(hash.find(next) != hash.end()) hash.erase(next++);
+            while(hash.count(prev)) hash.erase(prev--);
+            while(hash.count(next)) hash.erase(next++);
             
             res = max(res, next-prev-1);
         }
