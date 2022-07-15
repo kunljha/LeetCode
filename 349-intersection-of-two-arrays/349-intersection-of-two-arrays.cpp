@@ -9,7 +9,7 @@ public:
             hash.insert(num);
         
         for(int &num : nums2) {
-            if(hash.count(num) && count(ans.begin(), ans.end(), num) == 0)
+            if(hash.find(num) != hash.end() && find(ans.begin(), ans.end(), num) == ans.end())
                 ans.push_back(num);  
         }
         
