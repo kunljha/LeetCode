@@ -33,8 +33,8 @@ public:
     }
     
     double findMedian() {
-        if(maxH.size() == minH.size()) return maxH.empty() ? 0 : (double)(maxH.top() + minH.top()) / 2;
-        else return maxH.size() > minH.size() ? maxH.top() : minH.top(); 
+        if(maxH.size() > minH.size()) return maxH.top(); // when total no. of elements in maxH + minH is odd --> middle element will be the median
+        else return (double)(maxH.top() + minH.top()) / 2; // when total no. of elements in maxH + minH is even --> average of two middle elements will be the median
     }
 };
 
