@@ -8,15 +8,18 @@ public:
             ++hash[num];
         
         
-        priority_queue<pair<int, int>> maxH;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> minH;
         
         for(auto it = hash.begin(); it != hash.end(); it++) {
-            maxH.push(make_pair(it->second, it->first));
+            minH.push(make_pair(it->second, it->first));
             
-            if(maxH.size() > hash.size() - k) {
-                ans.push_back(maxH.top().second);
-                maxH.pop();
-            }
+            if(minH.size() > k)
+                minH.pop();    
+        }
+        
+        while(k--) {
+            ans.push_back(minH.top().second);
+            minH.pop();
         }
         
         return ans;
