@@ -17,10 +17,10 @@ public:
             return;
         }
         
+        if(idx == nums.size() || sum > target) return;
+        
         for(int i = idx; i < nums.size(); ++i) {
             if(i != idx and nums[i] == nums[i-1]) continue; // skip duplicates
-            
-            if(sum + nums[i] > target) break;
             
             subset.push_back(nums[i]);
             func(i+1, sum+nums[i], nums, target, subset, ans);
