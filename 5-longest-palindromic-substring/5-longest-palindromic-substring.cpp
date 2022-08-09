@@ -1,5 +1,5 @@
 class Solution {
-private: int start, maxLen = 0;
+// private: int start, maxLen = 0;
     
 public:
     string longestPalindrome(string s) {
@@ -7,21 +7,23 @@ public:
         
         if(n < 2) return s;
         
+        pair<int, int> p; // p.first = start, p.second = maxLen
+        
         for(int i = 0; i < n-1; ++i) {
-            findPalindrome(s, i, i);
-            findPalindrome(s, i, i+1);
+            findPalindrome(s, p, i, i);
+            findPalindrome(s, p, i, i+1);
         }
         
-        return s.substr(start, maxLen);
+        return s.substr(p.first, p.second);
     }
     
-    void findPalindrome(string s, int lo, int hi) {
+    void findPalindrome(string s, pair<int, int> &p, int lo, int hi) {
         while(lo >= 0 && hi < s.size() && s[lo] == s[hi])
             --lo, ++hi;
         
-        if(maxLen < hi - lo - 1) {
-            maxLen = hi - lo - 1,
-            start = lo + 1;
+        if(p.second < hi - lo - 1) {
+            p.second = hi - lo - 1,
+            p.first = lo + 1;
         }
     }
     
