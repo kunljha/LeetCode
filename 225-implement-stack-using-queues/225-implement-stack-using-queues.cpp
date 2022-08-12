@@ -1,33 +1,31 @@
 class MyStack {
-private: queue<int> q1, q2;
+private: queue<int> q;
 public:
     MyStack() {
         
     }
     
     void push(int x) {
-        q2.push(x);
+        q.push(x);
         
-        while(not q1.empty()) {
-            q2.push(q1.front());
-            q1.pop();
+        for(int i = 0; i < q.size()-1; ++i) {
+            q.push(q.front());
+            q.pop();
         }
-        
-        swap(q1, q2);
     }
     
     int pop() {
-        int x = q1.front();
-        q1.pop();
+        int x = q.front();
+        q.pop();
         return x;
     }
     
     int top() {
-        return q1.front();
+        return q.front();
     }
     
     bool empty() {
-        return q1.empty();
+        return q.empty();
     }
 };
 
