@@ -1,15 +1,14 @@
 class Solution {
 public:
     bool isPowerOfThree(int n) {
-        if(n <= 0) return false;
+        return func(n); 
+    }
+    
+    bool func(int n) {
+        if(n == 1) return true;
         
-        while(n > 1) {
-            if(n % 3 == 0)
-                n /= 3;
-            else
-                return false;
-        }
+        if(n < 1) return false;
         
-        return true;
+        return n % 3 == 0 ? func(n/3) : false;
     }
 };
