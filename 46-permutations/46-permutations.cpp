@@ -2,30 +2,25 @@ class Solution {
 public:
     vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>> ans;
-        vector<int> permutation;
-        vector<bool> visited(nums.size(), false);
-            
-        func(nums, visited, permutation, ans);
+        
+        func(0, nums, ans);
         
         return ans;
     }
     
-    void func(vector<int> &nums, vector<bool> &visited, vector<int> &permutation, vector<vector<int>> &ans) {
-        if(permutation.size() == nums.size()) {
-            ans.push_back(permutation);
+    
+    void func(int idx, vector<int> &nums, vector<vector<int>> &ans) {
+        if(idx == nums.size()) {
+            ans.push_back(nums);
             return;
         }
         
-        for(int i = 0; i < nums.size(); ++i) {
-            if(!visited[i]) {
-                visited[i] = true;
-                permutation.push_back(nums[i]);
+        for(int i = idx; i < nums.size(); ++i) {
+            swap(nums[idx], nums[i]);
+            func(idx+1, nums, ans);
             
-                func(nums, visited, permutation, ans);
-            
-                visited[i] = false;
-                permutation.pop_back();   
-            } 
+            // backtrack
+            swap(nums[idx], nums[i]);
         }
     }
 };
