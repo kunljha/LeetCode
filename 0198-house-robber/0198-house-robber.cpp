@@ -3,20 +3,22 @@ public:
     int rob(vector<int>& nums) {
         int n = nums.size();
         
-        vector<int> dp(n, 0);
-        
-        dp[0] = nums[0];
+        // vector<int> dp(n, 0);
+        int prev2 = 0, prev = nums[0];
         
         for(int ind = 1; ind < n; ++ind) {
-            int notRobbed = 0 + dp[ind-1]; 
+            int notRobbed = 0 + prev; 
             
             int robbed = nums[ind];
-            if(ind > 1) robbed += dp[ind-2];
+            if(ind > 1) robbed += prev2;
 
-            dp[ind] = max(robbed, notRobbed);
+            int cur = max(robbed, notRobbed);
+            
+            prev2 = prev;
+            prev = cur;
         }
 
-        return dp[n-1];
+        return prev;
     }
     
 //     int fun(int ind, vector<int> &nums, vector<int> &dp) {
