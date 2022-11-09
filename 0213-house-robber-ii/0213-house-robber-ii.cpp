@@ -3,56 +3,43 @@ public:
     int rob(vector<int>& nums) {
         int n = nums.size();
         
-        if(n == 1) return nums[0];
+        if(n == 1) return nums[0]; // corner-case
         
-        vector<int> dp1(n-1, 0);
-        vector<int> dp2(n, 0);
+        // vector<int> dp1(n-1, 0);
+        // vector<int> dp2(n, 0);
+        int prev2, prev;
+         
+        // for houses : 0 --> n-2
+        prev2 = 0, prev = nums[0];
         
-        // base-case
-        dp1[0] = nums[0];
-        dp2[1] = nums[1];
-        
-        // filling dp1
         for(int ind = 1; ind < n-1; ++ind) {
-            int notPick = 0 + dp1[ind-1];
+            int notPick = 0 + prev;
             int pick = nums[ind];
-            if(ind > 1) pick += dp1[ind-2];
+            if(ind > 1) pick += prev2;
 
-            dp1[ind] = max(notPick, pick);
+            int cur = max(notPick, pick);
+            
+            prev2 = prev;
+            prev = cur;
         }
         
-        // filling dp2
+        int ans1 = prev;
+        
+        // for houses : 1 --> n-1
+        prev2 = 0, prev = nums[1];
+        
         for(int ind = 2; ind < n; ++ind) {
-            int notPick = 0 + dp2[ind-1];
-            int pick = nums[ind] + dp2[ind-2];
+            int notPick = 0 + prev;
+            int pick = nums[ind] + prev2;
 
-            dp2[ind] = max(notPick, pick);
+            int cur = max(notPick, pick);
+            
+            prev2 = prev;
+            prev = cur;
         }
         
-        return max(dp1[n-2], dp2[n-1]);
+        int ans2 = prev;
+        
+        return max(ans1, ans2);
     }
-    
-//     int fun1(int ind, vector<int> &nums, vector<int> &dp1) {
-//         if(ind < 0) return 0;
-//         if(ind == 0) return nums[0];
-        
-//         if(dp1[ind] != -1) return dp1[ind];
-        
-//         int notPick = 0 + fun1(ind-1, nums, dp1);
-//         int pick = nums[ind] + fun1(ind-2, nums, dp1);
-        
-//         return dp1[ind] = max(notPick, pick);
-//     }
-    
-//     int fun2(int ind, vector<int> &nums, vector<int> &dp2) {
-//         if(ind <= 0) return 0;
-//         if(ind == 1) return nums[1];
-        
-//         if(dp2[ind] != -1) return dp2[ind];
-        
-//         int notPick = 0 + fun2(ind-1, nums, dp2);
-//         int pick = nums[ind] + fun2(ind-2, nums, dp2);
-        
-//         return dp2[ind] = max(notPick, pick);
-//     }
 };
