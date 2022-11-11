@@ -10,19 +10,14 @@ public:
         dp[n][1] = 0;
         
         for(int i = n-1; i >= 0; --i) {
-            for(int mustPick = 0; mustPick <= 1; ++mustPick) {
-                if(mustPick) {
-                    int pick = nums[i] + dp[i+1][1];
-                    int stop = 0; // means stop picking and return with cur sum
-
-                    dp[i][mustPick] = max(stop, pick);
-                } else {
-                    int notPick = 0 + dp[i+1][0];
-                    int pick = nums[i] + dp[i+1][1];
-
-                    dp[i][mustPick] = max(notPick, pick);
-                } 
-            }
+            int pick = nums[i] + dp[i+1][1];
+            int stop = 0; // means stop picking and return with cur sum
+            dp[i][1] = max(stop, pick);
+            
+            
+            int notPick = 0 + dp[i+1][0];
+            pick = nums[i] + dp[i+1][1];
+            dp[i][0] = max(notPick, pick);      
         }
             
         return dp[0][0];     
