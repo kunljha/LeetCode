@@ -1,28 +1,16 @@
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
-        int n = nums.size();
         
-        // space-optimised-dp
-        vector<int> front(2, 0), cur(2, 0);
+        // greedy approach
+        int cur_sum = nums[0], ans = nums[0];
         
-        // base-case
-        front[0] = -1e9;
-        front[1] = 0;
-        
-        for(int i = n-1; i >= 0; --i) {
-            int pick = nums[i] + front[1];
-            int stop = 0; // means stop picking and return with cur sum
-            cur[1] = max(stop, pick);
+        for(int i = 1; i < nums.size(); ++i) {
+            cur_sum = max(cur_sum + nums[i], nums[i]);
             
-            
-            int notPick = 0 + front[0];
-            pick = nums[i] + front[1];
-            cur[0] = max(notPick, pick); 
-            
-            front = cur;
+            ans = max(ans, cur_sum);
         }
-            
-        return front[0];     
+        
+        return ans;    
     }
 };
