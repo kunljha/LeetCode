@@ -1,35 +1,20 @@
 class Solution {
 public:
-    static bool myCmp(pair<int, char> &p1, pair<int, char> &p2) {
-        return p1.first > p2.first;
-    }
-    
     string frequencySort(string s) {
         int n = s.size();
+        
         unordered_map<char, int> ump;
+        for(char ch : s) ++ump[ch];
         
-        for(int i = 0; i < n; ++i) {
-            ++ump[s[i]];
-        }
-        
-        vector<pair<int, char>> v;
-        for(auto it = ump.begin(); it != ump.end(); ++it) {
-            pair<int, char> p;
-            p.first = it->second; // frequency
-            p.second = it->first; // character
-            
-            v.push_back(p);
-        }
-        
-        sort(v.begin(), v.end(), myCmp);
+        vector<vector<char>> bucket(n+1); // freq lies in range [1...n]
+        for(auto [ch, f] : ump)
+            bucket[f].push_back(ch);
         
         string ans = "";
-        for(auto p : v) { 
-            int cnt = p.first;
-            char ch = p.second;
-            
-            for(int i = 0; i < cnt; ++i)
-                ans += ch;
+        for(int freq = n; freq >= 1; --freq) {
+            for(auto ch : bucket[freq]) {
+                ans.append(freq, ch);
+            }
         }
         
         return ans;
