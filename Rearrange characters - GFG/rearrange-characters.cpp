@@ -21,6 +21,8 @@ class Solution
                 mostFreq = ch;
             }
         }
+        
+        if(largest > (n+1)/2) return "-1";
             
         int ind = 0;
         vector<char> ans(n);
@@ -50,13 +52,6 @@ class Solution
         string S = "";
         for(char ch : ans) {
             S += ch;
-        }
-            
-        for(int i = 0; i < S.size()-1; ++i) {
-            if(S[i] == S[i+1]) {
-                S = "-1";
-                break;
-            }
         }
         
         return S;
