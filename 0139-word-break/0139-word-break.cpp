@@ -3,27 +3,25 @@ public:
     bool wordBreak(string s, vector<string>& wordDict) {
         int n = s.size();
         
-        unordered_set<string> ust;
+        unordered_set<string> dict;
         for(string str : wordDict) {
-            ust.insert(str);
+            dict.insert(str);
         }
         
-        vector<int> dp(n, -1);
+        vector<int> dp(n+1, -1);
         
-        return fun(0, s, ust, dp); 
+        return fun(0, s, dict, dp); 
     }
     
-    bool fun(int ind, string &s, unordered_set<string> &ust, vector<int> &dp) {
+    bool fun(int ind, string &s, unordered_set<string> &dict, vector<int> &dp) {
         if(ind == s.size()) return 1;
         
         if(dp[ind] != -1) return dp[ind];
         
-        for(int j = ind; j < s.size(); ++j) {
-            string cur_word = s.substr(ind, j-ind+1);
+        for(int j = ind; j < (int)s.size(); ++j) {
+            string prefix = s.substr(ind, j-ind+1);
             
-            if(ust.find(cur_word) == ust.end()) continue;
-            
-            if(fun(j+1, s, ust, dp)) {
+            if(dict.count(prefix) && fun(j+1, s, dict, dp)) {
                 return dp[ind] = 1;
             }
         }
