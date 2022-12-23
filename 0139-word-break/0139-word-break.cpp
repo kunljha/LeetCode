@@ -18,18 +18,16 @@ public:
         
         if(dp[ind] != -1) return dp[ind];
         
-        bool res = 0;
         for(int j = ind; j < s.size(); ++j) {
             string cur_word = s.substr(ind, j-ind+1);
             
             if(ust.find(cur_word) == ust.end()) continue;
             
             if(fun(j+1, s, ust, dp)) {
-                res = 1;
-                break;
+                return dp[ind] = 1;
             }
         }
         
-        return dp[ind] = res;
+        return dp[ind] = 0;
     }
 };
