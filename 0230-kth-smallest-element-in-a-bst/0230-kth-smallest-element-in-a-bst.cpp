@@ -12,21 +12,26 @@
 class Solution {
 public:
     int kthSmallest(TreeNode* root, int k) {
-        TreeNode* ans = dfs(root, k);
+        stack<TreeNode*> st;
         
-        return ans->val;
-    }
-    
-    TreeNode* dfs(TreeNode* root, int &k) {
-        if(root == NULL) return NULL;
-	
-        TreeNode* left = dfs(root->left, k);
-        if(left != NULL) return left;
+        TreeNode* cur = root;
+        while(true) {
+            if(cur != NULL) {
+                st.push(cur);
+                cur = cur->left;
+            } else {
+                if(st.empty()) break; // it means no more nodes to traverse
+                
+                cur = st.top();
+                st.pop();
+                --k;
+                
+                if(k == 0) break;
+                
+                cur = cur->right;
+            }
+        }
         
-        --k;
-        if(k == 0) return root;
-
-        return dfs(root->right, k);
+        return cur->val;
     }
-    
 };
