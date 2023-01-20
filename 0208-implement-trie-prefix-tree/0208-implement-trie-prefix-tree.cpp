@@ -9,6 +9,13 @@ public:
         for(int i = 0; i < 26; ++i)
             child[i] = NULL;
     }
+    
+    // destructor
+    ~TrieNode() {
+        for(auto it : child)
+            delete it;
+    }
+    
 };
 
 class Trie {
@@ -63,6 +70,11 @@ public:
         }
         
         return true;   
+    }
+    
+    // destructor
+    ~Trie() {
+        delete root;
     }
 
 };
