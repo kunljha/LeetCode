@@ -3,23 +3,31 @@ public:
     string removeDuplicates(string s, int k) {
         int n = s.size();
         
-        int i = 0;
+        stack<pair<char, int>> st;
         for(int j = 0; j < n; ++j) {
-            s[i] = s[j];
-            
-            if(i-k+1 >= 0) {
-                int l = i-k+1;
-                for( ; l < i; ++l) {
-                    if(s[l] == s[i]) continue;
-                    else break;
-                }
-
-                if(l == i) i = i-k;
+            if(st.empty()) {
+                st.push({ s[j], 1 });
             }
-            
-            ++i;
+            else {
+                if(st.top().first == s[j]) {
+                    ++st.top().second;
+                    
+                    if(st.top().second == k) st.pop();
+                }
+                else {
+                    st.push({ s[j], 1 });
+                }
+            }
         }
         
-        return s.substr(0, i);
+        s = "";
+        while(not st.empty()) {
+            s += string(st.top().second, st.top().first);
+            st.pop();
+        }
+        
+        reverse(s.begin(), s.end());
+        
+        return s;
     }
 };
