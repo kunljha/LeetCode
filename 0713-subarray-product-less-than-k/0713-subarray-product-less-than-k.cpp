@@ -6,23 +6,15 @@ public:
         int n = nums.size();
         int cnt = 0, prod = 1;
         
-        int i = 0, j = 0;
-        while(j < n) {
+        int i = 0;
+        for(int j = 0; j < n; ++j) {
             prod *= nums[j];
             
-            if(prod < k) {
-                cnt += j-i+1;
-                ++j;
-            } 
-            else {
-                while(i <= j && prod >= k) {
-                    prod /= nums[i];
-                    ++i;
-                }
-                
-                cnt += j-i+1;
-                ++j;
-            }
+            while(i <= j && prod >= k) {
+                prod /= nums[i++];
+            }      
+            
+            cnt += j-i+1;
         }
         
         return cnt;
