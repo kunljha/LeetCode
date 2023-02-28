@@ -22,11 +22,10 @@ public:
                     if(sum >= target && sum - target < diff) {
                         diff = sum - target;
                         len = min(len, j-i+1);
-                    }
-                    
+                    }   
                 }
                 
-                if(sum == target) len = min(len, j-i+1);
+                // if(sum == target) len = min(len, j-i+1);
                 ++j;    
             }
         }
