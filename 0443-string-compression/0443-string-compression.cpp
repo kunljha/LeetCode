@@ -3,32 +3,28 @@ public:
     int compress(vector<char>& chars) {
         int n = chars.size();
         
-        string s = "";
-        int cnt = 1;
-        int i = 1;    
-        while(i < n) {
-            if(chars[i] == chars[i-1]) {
-                ++cnt;
-            }
-            else {
-                s += chars[i-1];
-                if(cnt > 1) s += to_string(cnt);
-                cnt = 1;
-            }  
+        int i = 0, j = 0;
+        int fill = 0;
+        while(j < n) {
+            int cnt = 0;
             
-            ++i;
+            while(j < n && chars[j] == chars[i]) {
+                ++cnt, 
+                ++j;
+            }
+            
+            chars[fill++] = chars[i];
+            if(cnt > 1) {
+                string str = to_string(cnt);
+                
+                for(char &ch : str)
+                    chars[fill++] = ch;
+                
+            }
+            
+            i = j;     
         }
         
-        s += chars[i-1];
-        if(cnt > 1) s += to_string(cnt);
-        
-        chars.clear();
-        for(char &ch : s) {
-            chars.push_back(ch);
-        }
-        
-        return chars.size();
-        // cout << s << "\n";
-        // return s.size();
+        return fill;
     }
 };
