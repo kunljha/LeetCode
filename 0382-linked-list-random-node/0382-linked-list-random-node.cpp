@@ -10,21 +10,28 @@
  */
 class Solution {
 private:
-    vector<int> nodes;
+    int len = 0;
+    ListNode* start = NULL;
     
 public:
     Solution(ListNode* head) {
+        this->start = head;
         
         while(head != NULL) {
-            this->nodes.push_back(head->val);
+            ++this->len;
             head = head->next;
         }
     }
     
     int getRandom() {
-        int i = rand() % this->nodes.size();
+        int i = rand() % this->len;
         
-        return this->nodes[i];
+        ListNode* cur = this->start;
+        while(i--) {
+            cur = cur->next;
+        }
+        
+        return cur->val;
     }
 };
 
