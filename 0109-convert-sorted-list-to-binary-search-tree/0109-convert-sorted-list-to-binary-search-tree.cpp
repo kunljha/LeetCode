@@ -22,23 +22,30 @@
 class Solution {
 public:
     TreeNode* sortedListToBST(ListNode* head) {
+        if (head == NULL) return NULL;
+          
+        if (head->next == NULL) {
+            TreeNode *root = new TreeNode(head -> val);
+            return root;
+        }
+        
         return constructBST(head, NULL);
     }
     
-    TreeNode* constructBST(ListNode* lefthead, ListNode* righthead) {
-        if(lefthead == righthead) return NULL;
+    TreeNode* constructBST(ListNode* left, ListNode* right) {
+        if(left == right) return NULL;
         
         // find middle node 
-        ListNode* slow = lefthead, *fast = lefthead;
-        while(fast != righthead && fast->next != righthead) {
+        ListNode* slow = left, *fast = left;
+        while(fast != right && fast->next != right) {
             slow = slow->next;
             fast = fast->next->next;
         }
         
         // slow pointer will be at middle node
         TreeNode* root = new TreeNode(slow->val);
-        root->left = constructBST(lefthead, slow);
-        root->right = constructBST(slow->next, righthead);
+        root->left = constructBST(left, slow);
+        root->right = constructBST(slow->next, right);
          
         return root;
     }
