@@ -10,6 +10,7 @@
  */
 class Solution {
 public:
+    // submission for daily challenge
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         priority_queue<pair<int, ListNode*>, vector<pair<int, ListNode*>>, greater<pair<int, ListNode*>>> pq;
         for(ListNode* listhead : lists) {
