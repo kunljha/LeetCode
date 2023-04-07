@@ -16,32 +16,22 @@ public:
             }
         }
         
+        vector<pair<int, int>> dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        
         while(not q.empty()) {
-            int i = q.front().first;
-            int j = q.front().second;
+            auto [x, y] = q.front();
             q.pop();
             
             // all four directions
-            if(i > 0 && grid[i-1][j] == 1 && !visited[i-1][j]) {
-                q.push({ i-1, j });
-                visited[i-1][j] = true;   
+            for(auto& [dx, dy] : dirs) {
+                int i = x + dx;
+                int j = y + dy;
+                
+                if(i >= 0 && i < m && j >= 0 && j < n && grid[i][j] == 1 && !visited[i][j]) {
+                    q.push({ i, j });
+                    visited[i][j] = true;
+                }
             }
-            
-            if(i+1 < m && grid[i+1][j] == 1 && !visited[i+1][j]) {
-                q.push({ i+1, j });
-                visited[i+1][j] = true;  
-            }
-            
-            if(j > 0 && grid[i][j-1] == 1 && !visited[i][j-1]) {
-                q.push({ i, j-1 });
-                visited[i][j-1] = true; 
-            }
-            
-            if(j+1 < n && grid[i][j+1] == 1 && !visited[i][j+1]) {
-                q.push({ i, j+1 });
-                visited[i][j+1] = true;
-            }
-             
         }
         
         int res = 0;
