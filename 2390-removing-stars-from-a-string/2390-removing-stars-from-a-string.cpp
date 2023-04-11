@@ -3,25 +3,20 @@ public:
     string removeStars(string s) {
         int n = s.size();
         
-        stack<char> st;
-        
-        for(int i = 0; i < n; ++i) {
-            if(s[i] != '*') {
-                st.push(s[i]);
+        // without stack approach
+        int i = 0, j = 0;
+        while(j < n) {
+            if(s[j] != '*') {
+                s[i] = s[j];
+                ++i;
             }
             else {
-                st.pop();
+                --i;
             }
+            
+            ++j;
         }
         
-        string res = "";
-        while(not st.empty()) {
-            res += st.top();
-            st.pop();
-        }
-        
-        reverse(res.begin(), res.end());
-        
-        return res;    
+        return s.substr(0, i);
     }
 };
